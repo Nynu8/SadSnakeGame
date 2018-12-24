@@ -6,19 +6,16 @@ struct snakePart {
 	snakePart* next = nullptr;
 };
 
-struct snakeBody {
+static struct snakeBody {
 	snakePart* first;
-};
+}body;
 
-enum class Direction {
+static enum class Direction {
 	NORTH,
 	WEST,
 	SOUTH,
 	EAST
-};
-
-Direction currentDirection;
-snakeBody body;
+}currentDirection;
 
 void snakeChangeDirection(Direction);
 void snakeMove();

@@ -4,7 +4,7 @@
 constexpr int mapSize = 20;
 constexpr int moveDelay = 1000;
 
-struct food {
+static struct food {
 	int x;
 	int y;
 }foodPosition;

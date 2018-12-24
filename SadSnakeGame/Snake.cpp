@@ -39,6 +39,8 @@ void snakeEat()
 bool isOccupiedBySnake(int x, int y)
 {
 	snakePart* tmp = body.first;
+	if (tmp == nullptr)
+		return false;
 	while (tmp->next != nullptr) {
 		if (x == tmp->x && y == tmp->y)
 			return true;

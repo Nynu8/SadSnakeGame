@@ -4,5 +4,5 @@
 
 void drawMap();
 void drawFood();
-void drawSnake(snakeBody*);
+void drawSnake();
 void setCursorPosition(int, int);

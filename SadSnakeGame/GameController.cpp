@@ -5,7 +5,7 @@
 
 bool run()
 {
-	drawSnake(&body);
+	//drawSnake();
 	Sleep(moveDelay);
 	return true;
 }
@@ -13,6 +13,7 @@ bool run()
 void pickFoodSpot()
 {
 	int x, y;
+	srand(time(NULL));
 	do {
 		x = rand() % mapSize + 1;
 		y = rand() % mapSize + 1;
@@ -24,7 +25,8 @@ void pickFoodSpot()
 
 void startGame()
 {
+	body.first = new snakePart{ mapSize / 2, mapSize / 2 };
 	drawMap();
 	pickFoodSpot();
 	while (run());
-}
+} 

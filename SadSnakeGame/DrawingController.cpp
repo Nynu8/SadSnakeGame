@@ -24,9 +24,9 @@ void drawFood()
 	std::cout << "x";
 }
 
-void drawSnake(snakeBody* body)
+void drawSnake()
 {
-	snakePart* tmp = body->first;
+	snakePart* tmp = body.first;
 	setCursorPosition(tmp->x, tmp->y);
 	std::cout << "o";
 	while (tmp->next != nullptr)

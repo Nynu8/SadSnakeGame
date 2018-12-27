@@ -6,3 +6,4 @@ void drawMap();
 void drawFood();
 void drawSnake();
 void setCursorPosition(int, int);
+void ShowConsoleCursor(bool);

@@ -1,4 +1,6 @@
 #pragma once
+#include "DrawingController.h"
+#include <queue>
 
 struct snakePart {
 	int x;
@@ -6,19 +8,20 @@ struct snakePart {
 	snakePart* next = nullptr;
 };
 
-static struct snakeBody {
+extern struct snakeBody {
 	snakePart* first;
-}body;
+} body;
 
-static enum class Direction {
+extern enum class Direction {
 	NORTH,
 	WEST,
 	SOUTH,
 	EAST
-}currentDirection;
+} currentDirection;
+
 
 void snakeChangeDirection(Direction);
-void snakeMove();
-void snakeBodyMove();
+void moveSnake();
+void snakeBodyUpdate();
 void snakeEat();
 bool isOccupiedBySnake(int, int);

@@ -2,13 +2,17 @@
 #include "DrawingController.h"
 
 constexpr int mapSize = 20;
-constexpr int moveDelay = 1000;
+constexpr int moveDelay = 500;	//ms
 
-static struct food {
+struct food {
 	int x;
 	int y;
-}foodPosition;
+};
+
+extern food foodPosition;
 
 void startGame();
 bool run();
 void pickFoodSpot();
+bool handleInput(char);
+void checkFood();

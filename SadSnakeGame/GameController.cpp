@@ -24,6 +24,8 @@ bool run()
 	}
 
 	moveSnake();
+	if (!isAlive())
+		return false;
 	checkFood();
 	drawSnake();
 	Sleep(moveDelay);
@@ -47,7 +49,7 @@ void startGame()
 {
 	body.first = new snakePart{ mapSize / 2, mapSize / 2 };
 	body.first->next = new snakePart{ (mapSize / 2) - 1, mapSize / 2 };
-	drawMap();
+	drawGame();
 	pickFoodSpot();
 	while (run());
 } 
@@ -74,5 +76,23 @@ void checkFood()
 	if (body.first->x == foodPosition.x && body.first->y == foodPosition.y) {
 		snakeEat();
 		pickFoodSpot();
+		updateScore();
 	}
+}
+
+bool isAlive()
+{
+	if (body.first->x < 1 || body.first->x > mapSize + 1 || body.first->y < 1 || body.first->y > mapSize + 1)
+		return false;
+
+	if (isSnakeEatingItself())
+		return false;
+
+	return true;
+}
+
+void updateScore()
+{
+	score++;
+	displayUpdatedScore();
 }

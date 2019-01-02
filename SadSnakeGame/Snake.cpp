@@ -61,3 +61,16 @@ bool isOccupiedBySnake(int x, int y)
 
 	return false;
 }
+
+bool isSnakeEatingItself()
+{
+	snakePart* head = body.first;
+	snakePart* tmp = head->next;
+	while (tmp != nullptr && tmp->next != nullptr) {
+		if (tmp->x == head->x && tmp->y == head->y)
+			return true;
+		tmp = tmp->next;
+	}
+
+	return false;
+}

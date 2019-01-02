@@ -25,3 +25,4 @@ void moveSnake();
 void snakeBodyUpdate();
 void snakeEat();
 bool isOccupiedBySnake(int, int);
+bool isSnakeEatingItself();

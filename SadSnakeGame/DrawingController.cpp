@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <Windows.h>
 
+HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
 void drawGame()
 {
 	//set console size
@@ -13,7 +15,6 @@ void drawGame()
 	MoveWindow(console, r.left, r.top, mapSize * 21, mapSize * 21, TRUE);
 
 	//hide console cursor
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = false;
@@ -30,6 +31,7 @@ void drawGame()
 	SetCurrentConsoleFontEx(out, FALSE, &cfi);
 
 	//drawing map borders
+	SetConsoleTextAttribute(out, 12);
 	for (int i = 0; i <= mapSize; i++) {
 		setCursorPosition(i, 0);
 		std::cout << '#';
@@ -40,24 +42,42 @@ void drawGame()
 		setCursorPosition(mapSize, i);
 		std::cout << '#';
 	}
+	SetConsoleTextAttribute(out, 12);
+	
+	//drawing score
+	SetConsoleTextAttribute(out, 8);
+	for (int i = 0; i < 12; i++) {
+		setCursorPosition(mapSize + 2 + i, 0);
+		std::cout << '#';
+	}
+
+	for (int i = 0; i < 12; i++) {
+		setCursorPosition(mapSize + 2 + i, 2);
+		std::cout << '#';
+	}
+
+	setCursorPosition(mapSize + 2, 1);
+	std::cout << "#SCORE: 000#";
 
 	//drawing menu
-	setCursorPosition(mapSize + 2, 1);
+	setCursorPosition(mapSize + 2, 5);
 	std::cout << "Help:";
-	setCursorPosition(mapSize + 2, 2);
+	setCursorPosition(mapSize + 2, 6);
 	std::cout << "WSAD or arrow keys to move";
-	setCursorPosition(mapSize + 2, 3);
+	setCursorPosition(mapSize + 2, 7);
 	std::cout << "P to pause/resume";
-	setCursorPosition(mapSize + 2, 4);
-	std::cout << " Q to quit";
-	setCursorPosition(mapSize + 2, 4);
+	setCursorPosition(mapSize + 2, 8);
+	std::cout << "Q to quit";
+	setCursorPosition(mapSize + 2, 9);
 	std::cout << "R to reset";
 }
 
 void drawFood()
 {
+	SetConsoleTextAttribute(out, 6);
 	setCursorPosition(foodPosition.x, foodPosition.y);
-	std::cout << "X";
+	std::cout << 'X';
+	SetConsoleTextAttribute(out, 11);
 }
 
 void drawSnake()
@@ -69,8 +89,10 @@ void drawSnake()
 	setCursorPosition(tmp->x, tmp->y);
 	std::cout << " ";
 
+	SetConsoleTextAttribute(out, 10);
 	setCursorPosition(body.first->x, body.first->y);
-	std::cout << "O";
+	std::cout << 'O';
+	SetConsoleTextAttribute(out, 11);
 }
 
 void setCursorPosition(int x, int y) {

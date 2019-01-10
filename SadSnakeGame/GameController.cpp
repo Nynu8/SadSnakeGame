@@ -3,7 +3,6 @@
 #include <time.h>
 #include <random>
 #include <conio.h>
-
 #include <iostream>
 
 food foodPosition;
@@ -37,8 +36,8 @@ void pickFoodSpot()
 	int x, y;
 	srand(time(NULL));
 	do {
-		x = rand() % mapSize + 1;
-		y = rand() % mapSize + 1;
+		x = rand() % (mapSize - 1) + 1;
+		y = rand() % (mapSize - 1) + 1;
 	} while (isOccupiedBySnake(x, y));
 	foodPosition.x = x;
 	foodPosition.y = y;
@@ -82,7 +81,7 @@ void checkFood()
 
 bool isAlive()
 {
-	if (body.first->x < 1 || body.first->x > mapSize + 1 || body.first->y < 1 || body.first->y > mapSize + 1)
+	if (body.first->x < 1 || body.first->x > mapSize - 1 || body.first->y < 1 || body.first->y > mapSize - 1)
 		return false;
 
 	if (isSnakeEatingItself())

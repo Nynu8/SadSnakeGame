@@ -1,8 +1,9 @@
-#include "DrawingController.h"
-
 #include <iostream>
 #include <iomanip>
 #include <Windows.h>
+#include "DrawingController.h"
+#include "GameController.h"
+#include "Snake.h"
 
 HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -57,7 +58,7 @@ void drawGame()
 	}
 
 	setCursorPosition(mapSize + 2, 1);
-	std::cout << "#SCORE: 000#";
+	std::cout << "#SCORE: 0  #";
 
 	//drawing menu
 	setCursorPosition(mapSize + 2, 5);
@@ -101,7 +102,10 @@ void setCursorPosition(int x, int y) {
 	SetConsoleCursorPosition(output, pos);
 }
 
-void displayUpdatedScore()
+void displayUpdatedScore(int score)
 {
-
+	SetConsoleTextAttribute(out, 8);
+	setCursorPosition(mapSize + 10, 1);
+	std::cout << score;
+	SetConsoleTextAttribute(out, 11);
 }

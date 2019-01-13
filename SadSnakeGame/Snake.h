@@ -1,6 +1,4 @@
 #pragma once
-#include "DrawingController.h"
-#include <queue>
 
 struct snakePart {
 	int x;

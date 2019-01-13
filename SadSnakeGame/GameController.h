@@ -1,10 +1,10 @@
 #pragma once
-#include "DrawingController.h"
-#include "Snake.h"
 
 constexpr int mapSize = 21;
 constexpr int moveDelay = 500;	//ms
 static int score = 0;
+static bool isPaused = false;
+static bool gameOver = false;
 
 struct food {
 	int x;

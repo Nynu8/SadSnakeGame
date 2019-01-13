@@ -1,9 +1,11 @@
-#include "GameController.h"
 #include <windows.h>
 #include <time.h>
 #include <random>
 #include <conio.h>
 #include <iostream>
+#include "GameController.h"
+#include "DrawingController.h"
+#include "Snake.h"
 
 food foodPosition;
 
@@ -22,12 +24,22 @@ bool run()
 		}
 	}
 
-	moveSnake();
-	if (!isAlive())
+	if (!isPaused) {
+		moveSnake();
+		if (!isAlive()) {
+			gameOver = true;
+		}
+		else {
+			checkFood();
+			drawSnake();
+			Sleep(moveDelay);
+		}
+	}
+
+	if (gameOver) {
 		return false;
-	checkFood();
-	drawSnake();
-	Sleep(moveDelay);
+	}
+
 	return true;
 }
 
@@ -64,6 +76,8 @@ bool handleInput(char input)
 		case 77: if (currentDirection != Direction::WEST) currentDirection = Direction::EAST; break;
 		case 'a':
 		case 75: if (currentDirection != Direction::EAST) currentDirection = Direction::WEST; break;
+		case 'p': isPaused = !isPaused; break;
+		case 'q': gameOver = true; break;
 		default: return false;
 	}
 
@@ -93,5 +107,5 @@ bool isAlive()
 void updateScore()
 {
 	score++;
-	displayUpdatedScore();
+	displayUpdatedScore(score);
 }

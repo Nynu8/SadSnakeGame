@@ -63,6 +63,7 @@ void startGame()
 	drawGame();
 	pickFoodSpot();
 	while (run());
+	exitGame();
 } 
 
 bool handleInput(char input)
@@ -108,4 +109,10 @@ void updateScore()
 {
 	score++;
 	displayUpdatedScore(score);
+}
+
+void exitGame()
+{
+	drawEndGameScreen();
+	_getch();
 }

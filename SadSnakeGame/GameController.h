@@ -20,3 +20,4 @@ bool handleInput(char);
 void checkFood();
 bool isAlive();
 void updateScore();
+void exitGame();

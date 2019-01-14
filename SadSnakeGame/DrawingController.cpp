@@ -109,3 +109,9 @@ void displayUpdatedScore(int score)
 	std::cout << score;
 	SetConsoleTextAttribute(out, 11);
 }
+
+void drawEndGameScreen()
+{
+	setCursorPosition(mapSize / 2, mapSize / 2);
+	std::cout << score;
+}

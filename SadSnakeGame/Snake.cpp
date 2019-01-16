@@ -76,3 +76,17 @@ bool isSnakeEatingItself()
 
 	return false;
 }
+
+
+void resetSnake()
+{
+	snakePart* tmp = body.first;
+	snakePart* toDelete;
+	while (tmp != nullptr) {
+		toDelete = tmp;
+		tmp = tmp->next;
+		delete toDelete;
+	}
+
+	delete tmp;
+}

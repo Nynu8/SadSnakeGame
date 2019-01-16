@@ -1,10 +1,10 @@
 #pragma once
 
 constexpr int mapSize = 21;
-constexpr int moveDelay = 500;	//ms
-static int score = 0;
-static bool isPaused = false;
-static bool gameOver = false;
+extern int moveDelay;	//ms
+extern int score;
+extern bool isPaused;
+extern bool gameOver;
 
 struct food {
 	int x;
@@ -21,3 +21,4 @@ void checkFood();
 bool isAlive();
 void updateScore();
 void exitGame();
+void resetGame();

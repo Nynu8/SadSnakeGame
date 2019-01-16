@@ -8,6 +8,10 @@
 #include "Snake.h"
 
 food foodPosition;
+int moveDelay = 500;	//ms
+int score = 0;
+bool isPaused = false;
+bool gameOver = false;
 
 bool run()
 {
@@ -79,6 +83,7 @@ bool handleInput(char input)
 		case 75: if (currentDirection != Direction::EAST) currentDirection = Direction::WEST; break;
 		case 'p': isPaused = !isPaused; break;
 		case 'q': gameOver = true; break;
+		case 'r': resetGame();
 		default: return false;
 	}
 
@@ -91,6 +96,10 @@ void checkFood()
 		snakeEat();
 		pickFoodSpot();
 		updateScore();
+		if (score % 5 == 0) {
+			if(moveDelay > 200)
+				moveDelay -= 10;
+		}
 	}
 }
 
@@ -115,4 +124,14 @@ void exitGame()
 {
 	drawEndGameScreen();
 	_getch();
+}
+
+void resetGame()
+{
+	system("cls");
+	resetSnake();
+	score = 0;
+	moveDelay = 500;
+	currentDirection = Direction::EAST;
+	startGame();
 }

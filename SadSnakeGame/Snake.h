@@ -24,3 +24,4 @@ void snakeBodyUpdate();
 void snakeEat();
 bool isOccupiedBySnake(int, int);
 bool isSnakeEatingItself();
+void resetSnake();

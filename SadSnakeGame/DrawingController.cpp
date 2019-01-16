@@ -1,35 +1,18 @@
 #include <iostream>
 #include <iomanip>
 #include <Windows.h>
+#include <cstdlib>
 #include "DrawingController.h"
 #include "GameController.h"
 #include "Snake.h"
 
 HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+bool initialSetup = false;
 
 void drawGame()
 {
-	//set console size
-	HWND console = GetConsoleWindow();
-	RECT r;
-	GetWindowRect(console, &r);
-	MoveWindow(console, r.left, r.top, mapSize * 21, mapSize * 21, TRUE);
-
-	//hide console cursor
-	CONSOLE_CURSOR_INFO cursorInfo;
-	GetConsoleCursorInfo(out, &cursorInfo);
-	cursorInfo.bVisible = false;
-	SetConsoleCursorInfo(out, &cursorInfo);
-
-	//change font size
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.Y = 17;
-	cfi.dwFontSize.X = 17;
-	cfi.FontFamily = FF_DECORATIVE;
-	cfi.FontWeight = FW_BOLD;
-	SetCurrentConsoleFontEx(out, FALSE, &cfi);
+	if (!initialSetup)
+		setupConsole();
 
 	//drawing map borders
 	SetConsoleTextAttribute(out, 12);
@@ -43,7 +26,6 @@ void drawGame()
 		setCursorPosition(mapSize, i);
 		std::cout << '#';
 	}
-	SetConsoleTextAttribute(out, 12);
 	
 	//drawing score
 	SetConsoleTextAttribute(out, 8);
@@ -112,6 +94,50 @@ void displayUpdatedScore(int score)
 
 void drawEndGameScreen()
 {
-	setCursorPosition(mapSize / 2, mapSize / 2);
-	std::cout << score;
+	setCursorPosition(mapSize / 2 - 6, mapSize / 2);
+	std::cout << "Final score: " << score;
+	srand(time(nullptr));
+	for (int i = 0; i < mapSize; i++) {
+		int color;
+		for (int j = 0; j < mapSize + 1; j++) {
+			color = (rand() % 13) + 1;
+			SetConsoleTextAttribute(out, color);
+			setCursorPosition(j, 0 + i);
+			std::cout << "#";
+			setCursorPosition(j, mapSize - i);
+			std::cout << "#";
+			setCursorPosition(0 + i, j);
+			std::cout << "#";
+			setCursorPosition(mapSize - i, j);
+			std::cout << "#";
+			Sleep(10);
+		}
+	}
+}
+
+void setupConsole()
+{
+	//set console size
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r);
+	MoveWindow(console, r.left, r.top, mapSize * 21, mapSize * 21, TRUE);
+
+	//hide console cursor
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(out, &cursorInfo);
+
+	//change font size
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.Y = 17;
+	cfi.dwFontSize.X = 17;
+	cfi.FontFamily = FF_DECORATIVE;
+	cfi.FontWeight = FW_BOLD;
+	SetCurrentConsoleFontEx(out, FALSE, &cfi);
+
+	initialSetup = true;
 }

@@ -8,7 +8,7 @@
 #include "Snake.h"
 
 food foodPosition;
-int moveDelay = 500;	//ms
+int moveDelay = 350;	//ms
 int score = 0;
 bool isPaused = false;
 bool gameOver = false;
@@ -97,7 +97,7 @@ void checkFood()
 		pickFoodSpot();
 		updateScore();
 		if (score % 5 == 0) {
-			if(moveDelay > 200)
+			if(moveDelay > 150)
 				moveDelay -= 10;
 		}
 	}
